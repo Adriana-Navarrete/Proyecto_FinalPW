@@ -1,0 +1,74 @@
+create database proyecto;
+
+use proyecto;
+
+create table usuarios (
+	id_asistente int(11) not null auto_increment,
+	apellido_paterno varchar(120),
+	apellido_materno varchar(120),
+	nombre varchar(120),
+	sexo char(1),
+	edad decimal(2,0),
+	email varchar(200),
+	nctr_rfc varchar(13),
+	numero_control int(8),
+	constraint pkusuarios primary key (id_asistente)
+) engine=innodb;
+
+create table tipos_usuarios (
+	id_tipo_usuario int(11) not null auto_increment,
+	tipo varchar(100),
+	constraint pktipos_usuarios primary key (id_tipo_usuario)
+) engine=innodb;
+
+create table eventos (
+	id_evento int(11) not null auto_increment,
+	nombre_evento varchar(200),
+	contacto text,
+	cuando text,
+	donde text,
+	informacion text,
+	fecha_inicio date,
+	fecha_fin date,
+	constraint pkeventos primary key (id_evento)
+) engine=innodb;
+
+create table actividades (
+	id_actividad int(11) not null auto_increment,
+	id_evento int(11) not null,
+	nombre_actividad varchar(500),
+	lugares int(2),
+	precio decimal(5,2),
+	descripcion text,
+	id_instructor int(11),
+	constraint pkactividades primary key (id_actividad),
+	constraint fkactividades foreign key (id_evento) references eventos(id_evento)
+) engine=innodb;
+
+create table asistentes_eventos (
+	id_asistente_evento int(11) not null auto_increment,
+	id_actividad int(11) not null,
+	id_asistente int(11) not null,
+	fecha_registro date,
+	constraint pkasistentes_eventos primary key (id_asistente_evento),
+	constraint fk1asistentes_eventos foreign key (id_actividad) references actividades(id_actividad),
+	constraint fk2asistentes_eventos foreign key (id_asistente) references usuarios(id_asistente)
+) engine=innodb;
+
+create table asistentes_tipos_usuarios (
+	id_asistente_tipo_usuario int(11) not null auto_increment,
+	id_asistente int(11) not null,
+	id_tipo_usuario int(11) not null,
+	constraint pkasistentes_tipos_usuarios primary key (id_asistente_tipo_usuario),
+	constraint fk1asistentes_tipos_usuarios foreign key (id_tipo_usuario) references tipos_usuarios(id_tipo_usuario),
+	constraint fk2asistentes_tipos_usuarios foreign key (id_asistente) references usuarios(id_asistente)
+) engine=innodb;
+
+create table eventos_tipos_usuarios (
+	id_evento_tipo_usuario int(11) not null auto_increment,
+	id_evento int(11) not null,
+	id_tipo_usuario int(11) not null,
+	constraint pkeventos_tipos_usuarios primary key (id_evento_tipo_usuario),
+	constraint fk1eventos_tipos_usuarios foreign key (id_tipo_usuario) references tipos_usuarios(id_tipo_usuario),
+	constraint fk2eventos_tipos_usuarios foreign key (id_evento) references eventos(id_evento)
+) engine=innodb;
