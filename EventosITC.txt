@@ -1,0 +1,88 @@
+CREATE DATABASE EventosITC;
+USE EventosITC;
+
+CREATE TABLE evt_eventos(
+    id_evento integer not null AUTO_INCREMENT,
+    nombre_evento varchar(50) not null,
+    contacto varchar(50) not null,
+    lugar varchar(50) not null,
+    informacion varchar(500) not null,
+    fecha_inicio date not null,
+    fecha_fin date not null,
+    constraint evt_eventoC1 primary key (id_evento),
+    constraint evt_eventoC2 unique (id_evento)    
+) ENGINE=INNODB;
+
+
+CREATE TABLE evt_asistentes(
+    id_asistente integer not null AUTO_INCREMENT,
+    nombre_asistente varchar(120) not null,
+    apellido_paterno varchar(120) not null,
+    apellido_materno varchar(120) not null,
+    genero varchar(1) not null,
+    edad integer not null,
+    email varchar(30) not null,
+    nctrl_rfc varchar(20) not null,
+    password varchar(30) not null,
+    constraint evt_asistentesC1 primary key (id_asistente),
+    constraint evt_asistentesC2 unique (id_asistente),
+    constraint evt_asistentesC3 check (edad > 5 && edad < 80)
+) ENGINE=INNODB;
+
+
+CREATE TABLE evt_actividades(
+    id_actividad integer not null AUTO_INCREMENT,
+    id_evento integer,
+    id_instructor integer not null,
+    nombre_actividad varchar(50) not null,
+    lugar varchar(50) not null,
+    precio integer not null,
+    descripcion varchar(500) not null,
+    constraint evt_actividadesC1 primary key (id_actividad),
+    constraint evt_actividadesC2 foreign key id_eventoFK (id_evento) references evt_eventos(id_evento),
+    constraint evt_actividadesC3 foreign key id_instructorFK (id_instructor) references evt_asistentes(id_asistente),
+    constraint evt_actividadesC4 unique (id_actividad),
+    constraint evt_actividadesC5 check (precio > 0)
+) ENGINE=INNODB;
+
+
+CREATE TABLE evt_asistentes_eventos(
+    id_asistente_evento integer not null AUTO_INCREMENT,
+    id_asistente integer not null,
+    id_actividad integer not null,
+    fecha_registro date not null,
+    constraint evt_asistentes_eventosC1 primary key (id_asistente_evento),
+    constraint evt_asistentes_eventosC2 foreign key id_asistente_FK (id_asistente) references evt_asistentes(id_asistente),
+    constraint evt_asistentes_eventosC3 foreign key id_actividad_FK (id_actividad) references evt_actividades(id_actividad),
+    constraint evt_asistentes_eventosC4 unique (id_asistente_evento)
+) ENGINE=INNODB;
+
+
+CREATE TABLE evt_tipos_usuarios(
+    id_tipo_usuario integer not null AUTO_INCREMENT,
+    tipo varchar(50) not null,
+    constraint evt_tipos_usuariosC1 primary key (id_tipo_usuario),
+    constraint evt_tipos_usuariosC2 unique (id_tipo_usuario)
+) ENGINE=INNODB;
+
+
+CREATE TABLE evt_asistentes_tipos_usuarios(
+    id_asistente_tipo_usuario integer not null AUTO_INCREMENT,
+    id_asistente integer not null,
+    id_tipo_usuario integer not null,
+    constraint evt_asistentes_tipos_usuariosC1 primary key (id_asistente_tipo_usuario),
+    constraint evt_asistentes_tipos_usuariosC2 foreign key id_asistente_FK(id_asistente) references evt_asistentes(id_asistente),
+    constraint evt_asistentes_tipos_usuariosC3 foreign key id_tipo_usuario_FK(id_tipo_usuario) references evt_tipos_usuarios(id_tipo_usuario),
+    constraint evt_asistentes_tipos_usuariosC4 unique (id_asistente_tipo_usuario)
+) ENGINE=INNODB;
+
+
+CREATE TABLE evt_eventos_tipos_usuarios(
+    id_evento_tipo_usuario integer not null AUTO_INCREMENT,
+    id_evento integer not null,
+    id_tipo_usuario integer not null,
+    constraint evt_eventos_tipos_usuariosC1 primary key (id_evento_tipo_usuario),
+    constraint evt_eventos_tipos_usuariosC2 foreign key id_evento_FK(id_evento) references evt_eventos(id_evento),
+    constraint evt_eventos_tipos_usuariosC3 foreign key id_tipo_usuario_FK(id_tipo_usuario) references evt_tipos_usuarios(id_tipo_usuario),
+    constraint evt_eventos_tipos_usuariosC4 unique (id_evento_tipo_usuario)
+) ENGINE=INNODB;
