@@ -1,0 +1,14 @@
+/* CSS Document */
+
+/* formulario de eventos*/
+/*elimina eventos*/
+#Layer4{
+	position:absolute;
+	width:500px;
+	height:1300px;
+	z-index:1;
+	left: 400px;
+	top: 250px;
+}
+/*actualiza eventos*/
+

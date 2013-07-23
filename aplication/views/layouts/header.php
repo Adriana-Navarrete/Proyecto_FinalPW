@@ -1,6 +1,6 @@
 <?php
 session_start();
-    include $_SERVER['DOCUMENT_ROOT'].'/PROYECTO_FINAL_PROPIO/proyecto_final/aplication/config.ini.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/pw/Proyecto_FinalPW/aplication/views/site/inicio.php';
 ?>
 
 <html>
@@ -98,7 +98,7 @@ session_start();
             <?php 
                 }
                 else{
-                    if($_SESSION['id_asistente'] == '13'){
+                    if($_SESSION['id_asistente'] == '1'){
             ?>
                         <div class="navbar navbar-inverse">
                             <div class="navbar-inner">
@@ -113,7 +113,7 @@ session_start();
                                         <a href="<?php echo BASE_URL;?>views/site/actividades.php"><i class="icon-tags"></i> Actividades</a>
                                     </li>
                                     <li class="active">
-                                        <a href="<?php echo BASE_URL;?>views/site/eventos.php"><i class="icon-briefcase"></i> Eventos</a>
+                                        <a href="<?php echo BASE_URL;?>views/admin/Registro_evt_eventos.php"><i class="icon-briefcase"></i> Eventos</a>
                                     </li>
                                     <li class="active">
                                         <a href="<?php echo BASE_URL;?>views/site/asistentes.php"><i class="icon-book"></i> Asistentes</a>
@@ -152,7 +152,7 @@ session_start();
             <?php
                     }
                     else{
-                        if($_SESSION['id_asistente'] > '13'){
+                        if($_SESSION['id_asistente'] > '1'){
             ?>
                             <div class="navbar navbar-inverse">
                                 <div class="navbar-inner">
