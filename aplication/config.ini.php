@@ -1,5 +1,5 @@
 <?php
 
-    define("BASE_URL","http://localhost/PROYECTO_FINAL/proyecto_final/aplication/");
+    define("BASE_URL","http://localhost/PWProyecto_Final/PROYECTO_FINAL/proyecto_final/aplication/");
     
 ?>

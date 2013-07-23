@@ -1,5 +1,5 @@
 <?php
 
-header('Location: aplication/views/site/inicio.php')
+header('Location: views/site/inicio.php')
 
 ?>
